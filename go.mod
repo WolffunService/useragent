@@ -1,3 +1,3 @@
-module github.com/mssola/useragent
+module github.com/WolffunService/useragent
 
-go 1.13
+go 1.19
