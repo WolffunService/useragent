@@ -31,6 +31,8 @@ type UserAgent struct {
 	bot          bool
 	mobile       bool
 	undecided    bool
+	appname      string
+	appversion   string
 }
 
 // Read from the given string until the given delimiter or the
@@ -182,6 +184,16 @@ func (p *UserAgent) Bot() bool {
 // Mobile returns true if it's a mobile device, false otherwise.
 func (p *UserAgent) Mobile() bool {
 	return p.mobile
+}
+
+// AppName return Application info
+func (p *UserAgent) AppName() string {
+	return p.appname
+}
+
+// AppVersion return Application info
+func (p *UserAgent) AppVersion() string {
+	return p.appversion
 }
 
 // UA returns the original given user agent.
