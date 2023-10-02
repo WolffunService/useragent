@@ -793,3 +793,13 @@ func BenchmarkUserAgent(b *testing.B) {
 		}
 	}
 }
+
+func TestName(t *testing.T) {
+	ua := new(UserAgent)
+	//Unity/2021.3.28f1 (Platform; ModelName; OSName; GameName_Version)
+	//ThetanWallet/{Version_build number} ("Android/IOS,.."; "ModelName"; "OS version")
+	ua.Parse("Unity/2021.3.28f1 (PC; Iphone; iOS; ThetanRivals_123)")
+	fmt.Println(ua)
+	ua.Mobile()
+	fmt.Println(ua.GameInfo())
+}

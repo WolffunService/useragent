@@ -31,6 +31,7 @@ type UserAgent struct {
 	bot          bool
 	mobile       bool
 	undecided    bool
+	game         string
 }
 
 // Read from the given string until the given delimiter or the
@@ -182,6 +183,20 @@ func (p *UserAgent) Bot() bool {
 // Mobile returns true if it's a mobile device, false otherwise.
 func (p *UserAgent) Mobile() bool {
 	return p.mobile
+}
+
+// Game return game info if exist
+func (p *UserAgent) GameInfo() (name string, version string) {
+	if len(p.game) <= 0 {
+		return
+	}
+	s := strings.Split(p.game, "_")
+	if len(s) != 2 {
+		return
+	}
+	name = s[0]
+	version = s[1]
+	return
 }
 
 // UA returns the original given user agent.
