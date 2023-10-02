@@ -289,6 +289,31 @@ func (p *UserAgent) detectOS(s section) {
 		p.mobile = true
 		p.browser.Name = "OkHttp"
 		p.browser.Version = s.version
+	} else if s.name == "Unity" {
+		//Unity/2021.3.28f1 (Platform; ModelName; OSName; GameName_Version)
+		// thetansm/enums/platformtypeenum
+		isMobile := s.comment[0] != "PC"
+		p.mobile = isMobile
+		p.browser.Name = "Unity"
+		p.browser.Version = s.version
+		p.platform = s.comment[0]
+		p.model = s.comment[1]
+		p.os = s.comment[2]
+		app := strings.Split(s.comment[3], "_")
+		p.appname = app[0]
+		p.appversion = app[1]
+	} else if s.name == "ThetanWallet" {
+		//ThetanWallet/{Version_build number} ("Android/IOS,.."; "ModelName"; "OS version")
+		p.mobile = true //chi co mobile thoi
+		p.browser.Name = "ThetanWallet"
+		p.browser.Version = s.version
+
+		p.platform = s.comment[0]
+		p.model = s.comment[1]
+		p.os = s.comment[2]
+
+		p.appname = "ThetanWallet"
+		p.appversion = s.version
 	} else {
 		// Check whether this is a bot or just a weird browser.
 		p.undecided = true
