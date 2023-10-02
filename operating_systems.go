@@ -299,7 +299,9 @@ func (p *UserAgent) detectOS(s section) {
 		p.platform = s.comment[0]
 		p.model = s.comment[1]
 		p.os = s.comment[2]
-		p.game = s.comment[3]
+		app := strings.Split(s.comment[3], "_")
+		p.appname = app[0]
+		p.appversion = app[1]
 	} else if s.name == "ThetanWallet" {
 		//ThetanWallet/{Version_build number} ("Android/IOS,.."; "ModelName"; "OS version")
 		p.mobile = true //chi co mobile thoi
@@ -309,6 +311,9 @@ func (p *UserAgent) detectOS(s section) {
 		p.platform = s.comment[0]
 		p.model = s.comment[1]
 		p.os = s.comment[2]
+
+		p.appname = "ThetanWallet"
+		p.appversion = s.version
 	} else {
 		// Check whether this is a bot or just a weird browser.
 		p.undecided = true
